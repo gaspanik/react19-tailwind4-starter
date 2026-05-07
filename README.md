@@ -83,6 +83,43 @@ pnpm format
 pnpm check
 ```
 
+## 🔤 標準書体：Gen Interface JP
+
+このテンプレートはデフォルトの書体として **[Gen Interface JP](https://github.com/yamatoiizuka/gen-interface-jp)** を使用しています。
+
+### 書体の変更方法
+
+書体を変更する場合は、以下の2ファイルを編集してください。
+
+**1. `index.html` — フォントの読み込み**
+
+```html
+<!-- 現在の設定（Gen Interface JP） -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gen-interface-jp@latest/all.css" />
+
+<!-- ディスプレイ書体を使う場合 -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gen-interface-jp@latest/display-all.css" /> -->
+```
+
+**2. `src/index.css` — デフォルトフォントの適用**
+
+```css
+/* Google Fontsを使う場合はファイル冒頭の @import のコメントを外す */
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap"); */
+@import "tailwindcss";
+
+@theme {
+  /* 現在の設定（Gen Interface JP） */
+  --default-font-family: "Gen Interface JP", sans-serif;
+
+  /* ディスプレイ書体を使う場合 */
+  /* --default-font-family: "Gen Interface JP Display", sans-serif; */
+
+  /* 例：Google Fontsに変更する場合 */
+  /* --default-font-family: "Noto Sans JP", sans-serif; */
+}
+```
+
 ## 🎨 Tailwind CSS v4
 
 このプロジェクトはTailwind CSS v4を使用しています。設定は [@tailwindcss/vite](https://tailwindcss.com/docs/guides/vite) プラグインを通じて行われます。

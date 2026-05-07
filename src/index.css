@@ -1,7 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300..700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300..700&display=swap"); */
 /* Font imports should be at the top */
 @import "tailwindcss";
 
 @theme {
-  --default-font-family: "Roboto", sans-serif;
+  /* --default-font-family: "Roboto", sans-serif; */
+  --default-font-family: "Gen Interface JP", sans-serif;
+  /* --default-font-family: "Gen Interface JP Display", sans-serif; */
 }
