@@ -16,22 +16,24 @@
 ## 📁 プロジェクト構造
 
 ```
-ts-swc/
+/
 ├── public/              # 静的アセット
 ├── src/
 │   ├── assets/         # 画像・フォントなど
 │   │   └── images/     # 画像ファイル（jpg, png, webp, svg）
 │   ├── components/     # 再利用可能なコンポーネント
-│   │   └── ButtonCn.tsx
+│   │   ├── ButtonCn.tsx     # cn()を使ったシンプルなボタン
+│   │   ├── ButtonCva.tsx    # CVAを使ったバリアントボタン
+│   │   └── CardTv.tsx       # tailwind-variantsを使ったカード
 │   ├── lib/            # ユーティリティ関数
 │   │   ├── image.ts         # 画像アセット管理（eager loading）
 │   │   ├── imageAsync.ts    # 画像アセット管理（lazy loading）
-│   │   └── utils.ts         # クラス名結合
+│   │   └── utils.ts         # クラス名結合（cn関数）
 │   ├── routes/         # TanStack Routerのルート定義
 │   │   ├── __root.tsx
 │   │   ├── index.tsx
 │   │   └── about.tsx
-│   ├── index.css       # グローバルスタイル
+│   ├── index.css       # グローバルスタイル・テーマ設定
 │   ├── main.tsx        # エントリーポイント
 │   └── routeTree.gen.ts # TanStack Router自動生成ファイル
 ├── biome.json          # Biome設定
