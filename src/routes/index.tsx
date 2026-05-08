@@ -19,18 +19,24 @@ function Index() {
       <div className="flex flex-col items-start gap-1 w-full md:w-1/2">
         <div className="flex items-center gap-2">
           <SquareCode className="w-6 h-6" />
-          <h1 className="font-semibold text-neutral-900 text-xl">React + Tanstack Router and Tailwind CSS v4 Starter</h1>
+          <h1 className="font-semibold text-neutral-900 text-xl">
+            React + Tanstack Router and Tailwind CSS v4 Starter
+          </h1>
         </div>
         <p className="mt-2 mb-4 text-neutral-500 text-sm">
-          A modern React setup with TypeScript, Tanstack Router, Tailwind CSS v4, and Lucide icons.
-          Guidelines included :D — Claude Code, GitHub Copilot and Gemini —
+          A modern React setup with TypeScript, Tanstack Router, Tailwind CSS v4, and Lucide icons. Guidelines included
+          :D — Claude Code, GitHub Copilot and Gemini —
         </p>
         <p className="mb-6 font-medium text-neutral-600 text-sm">
           Get started by editing <code>`src/routes/index.tsx`</code>
         </p>
         <h2 className="font-medium text-neutral-800 text-base">テンプレート内の書体について</h2>
         <p className="mb-4 text-neutral-500 text-sm">
-          デフォルトの書体として<a href="https://github.com/yamatoiizuka/gen-interface-jp" target="_blank" rel="noopener noreferrer">Gen Interface JP</a>を指定しています。Google Fontsなど、他の書体への変更方法はリポジトリのREADMEを参照してください。
+          デフォルトの書体として
+          <a href="https://github.com/yamatoiizuka/gen-interface-jp" target="_blank" rel="noopener noreferrer">
+            Gen Interface JP
+          </a>
+          を指定しています。Google Fontsなど、他の書体への変更方法はリポジトリのREADMEを参照してください。
         </p>
         <h2 className="mb-3 font-medium text-neutral-800 text-base">
           Shadcn/ui `cn` utility function to conditionally join classNames.
