@@ -22,8 +22,8 @@ function Index() {
           <h1 className="font-semibold text-neutral-900 text-xl">React + Tanstack Router and Tailwind CSS v4 Starter</h1>
         </div>
         <p className="mt-2 mb-4 text-neutral-500 text-sm">
-          A modern React setup with TypeScript, SWC compiler, Tanstack Router, Tailwind CSS v4, and Lucide icons.
-          Guidelines included :D — GitHub Copilot and Gemini —
+          A modern React setup with TypeScript, Tanstack Router, Tailwind CSS v4, and Lucide icons.
+          Guidelines included :D — Claude Code, GitHub Copilot and Gemini —
         </p>
         <p className="mb-6 font-medium text-neutral-600 text-sm">
           Get started by editing <code>`src/routes/index.tsx`</code>
