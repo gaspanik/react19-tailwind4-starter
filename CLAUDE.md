@@ -530,6 +530,10 @@ Use mise commands in environments with mise installed, otherwise use pnpm direct
 - **Dependencies**: Run `pnpm add <package>` (not npm install)
 - **Updates**: Use `pnpm update` to upgrade packages
 
+## Design System
+
+If `DESIGN.md` exists in the project root, read it before implementing any UI changes. It contains the design tokens (colors, typography, spacing, border radius) and component guidelines for this project.
+
 ## Claude Code-Specific Guidelines
 
 ### Tailwind CSS MCP Tools
