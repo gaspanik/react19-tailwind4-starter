@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
-    "@tanstack/react-router": "^1.169.2",
-    "@tanstack/react-router-devtools": "^1.166.13",
+    "@tanstack/react-router": "^1.169.8",
+    "@tanstack/react-router-devtools": "^1.166.19",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.14.0",
@@ -26,14 +26,14 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
-    "@tanstack/router-plugin": "^1.167.35",
+    "@tanstack/router-plugin": "^1.167.41",
     "@types/node": "^25.6.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "globals": "^17.6.0",
     "typescript": "~6.0.3",
-    "vite": "^8.0.11"
+    "vite": "^8.0.12"
   },
-  "packageManager": "pnpm@11.0.9"
+  "packageManager": "pnpm@11.1.0"
 }
