@@ -150,6 +150,20 @@ pnpm check        # Biome lint + format (auto-fix)
 - **Keyboard Navigation**: All functionality must be accessible via keyboard
 - **Screen Reader Testing**: Test with VoiceOver (macOS) or NVDA/JAWS (Windows)
 
+#### Uppercase Text
+
+Never write text in ALL CAPS directly in HTML. Apply the `uppercase` class for visual styling instead. Write text in proper case (capitalize first letter).
+
+```tsx
+// ❌ Avoid
+<a href="#about">ABOUT</a>
+
+// ✅ Correct
+<a href="#about" className="uppercase">About</a>
+```
+
+This prevents screen readers from spelling out each letter individually. Brand names and proper nouns are exempt.
+
 ### Theme Management
 
 - **Use @theme Block**: Define project-specific design tokens in `src/index.css`:
@@ -203,6 +217,52 @@ Tailwind CSS v4 has updated class naming conventions. **Always use v4 syntax**:
 - **`cn()` for composition**: Merge and dedupe Tailwind classes (uses `clsx` + `tailwind-merge`)
 - **Icons**: Use `lucide-react` with consistent sizing (`w-4 h-4` for inline, `w-6 h-6` for headings)
 - **Component Overrides**: Accept `className` prop and apply it last in `cn` call
+
+### Shared Class Consolidation (`*:` Variant)
+
+When 3+ sibling elements share 2+ identical classes, consolidate them onto the parent using the `*:` variant.
+
+```tsx
+// ❌ Avoid
+<ul>
+  <li><a href="#" className="hover:text-white">About</a></li>
+  <li><a href="#" className="hover:text-white">Works</a></li>
+  <li><a href="#" className="hover:text-white">Contact</a></li>
+</ul>
+
+// ✅ Correct
+<ul className="*:hover:text-white">
+  <li><a href="#">About</a></li>
+  <li><a href="#">Works</a></li>
+  <li><a href="#">Contact</a></li>
+</ul>
+```
+
+`*:` applies to direct children only (not grandchildren).
+
+### Color Token Management
+
+Never use Tailwind scale colors (`neutral-*`, `gray-*`, etc.) directly for project-specific colors. Define all colors as `@theme` tokens, including dark-background and hover variants.
+
+```css
+/* ✅ src/index.css */
+@theme {
+  --color-dark: #111111;
+  --color-dark-hover: #262626;
+  --color-muted: #666666;
+  --color-muted-dark: #a3a3a3;   /* subdued text on dark backgrounds */
+  --color-border: #e5e5e5;
+  --color-border-dark: #404040;  /* borders on dark backgrounds */
+}
+```
+
+```tsx
+// ❌ Avoid
+<p className="text-neutral-400">...</p>
+
+// ✅ Correct
+<p className="text-muted-dark">...</p>
+```
 
 ## Component Patterns
 
