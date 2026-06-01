@@ -167,12 +167,14 @@ Use Tailwind's `leading-*` utilities to control line-height per element:
 
 | Step | Suggested leading-* |
 |---|---|
-| text-xs / text-sm | `leading-relaxed` (1.625) |
+| text-xs / text-sm | `leading-tight` (1.25) |
 | text-base / text-lg | `leading-normal` (1.5) |
 | text-xl / text-2xl | `leading-snug` (1.375) |
 | text-3xl | `leading-snug` (1.375) |
 | text-4xl / text-5xl | `leading-tight` (1.25) |
-| text-6xl and above | `leading-none` (1.0) |
+| text-6xl and above | `leading-none` (overridden to 1.1 in @theme) |
+
+> **Note:** h1–h6 elements get `line-height: var(--line-height-none)` applied directly in `@layer base` (Step 4), using the `--line-height-none: 1.1` override written to `@theme`. Do NOT add `leading-none` as a Tailwind utility class or as a CSS property — it is set via `line-height` in `@layer base`.
 
 ---
 
@@ -270,42 +272,58 @@ Add or overwrite `--text-*` variables in the `@theme` block of the detected targ
   --text-7xl: X.XXXrem;
   --text-8xl: X.XXXrem;
   --text-9xl: X.XXXrem;
+  --line-height-none: 1.1;
 ```
+
+The `--line-height-none` override sets `leading-none` to `1.1` instead of Tailwind's default `1.0`, giving headings a slightly looser line-height that works better at display sizes.
 
 Include a comment recording the scale name and base size for future reference.
 
-### h1–h6 font-size mapping
+### h1–h6 font-size and line-height mapping
 
-Add `font-size` declarations to the `h1`–`h6` block inside `@layer base`.
+Add `font-size` and `line-height` declarations to the `h1`–`h6` block inside `@layer base`.
 
-If `h1`–`h6` already exists in `@layer base`, add `font-size: var(--text-Nxl)` to each rule.
+> **CRITICAL:** Write only valid CSS properties. `leading-none`, `leading-tight`, etc. are **Tailwind utility classes**, not CSS properties. Writing `leading-none;` inside a CSS rule is invalid and will be silently ignored by the browser. Always use `line-height: var(--line-height-none)` — never `leading-none;`.
+
+If `h1`–`h6` already exists in `@layer base`, add `font-size` and `line-height` to each rule.
 If not, add a new ruleset:
 
 ```css
 @layer base {
-  h1 { font-size: var(--text-5xl); }
-  h2 { font-size: var(--text-4xl); }
-  h3 { font-size: var(--text-3xl); }
-  h4 { font-size: var(--text-2xl); }
-  h5 { font-size: var(--text-xl); }
-  h6 { font-size: var(--text-lg); }
+  h1 { font-size: var(--text-5xl); line-height: var(--line-height-none); }
+  h2 { font-size: var(--text-4xl); line-height: var(--line-height-none); }
+  h3 { font-size: var(--text-3xl); line-height: var(--line-height-none); }
+  h4 { font-size: var(--text-2xl); line-height: var(--line-height-none); }
+  h5 { font-size: var(--text-xl);  line-height: var(--line-height-none); }
+  h6 { font-size: var(--text-lg);  line-height: var(--line-height-none); }
 }
 ```
 
-If an existing `h1`–`h6` block already has properties like `font-family`, preserve them and only add `font-size`.
+If an existing `h1`–`h6` block already has properties like `font-family`, preserve them and only add `font-size` and `line-height`.
 
 ---
 
-## Step 4.5: Clean up explicit text-size classes from h1–h6
+## Step 4.5: Clean up explicit text-size and leading classes from h1–h6
 
-After applying the scale, scan HTML files for heading elements that have explicit `text-*` size classes.
-These override the `@layer base` mapping and prevent the new scale from taking effect visually.
+After applying the scale, scan HTML files for heading elements that have explicit `text-*` size classes or `leading-*` classes.
+- `text-*` size classes override the `@layer base` mapping and prevent the new scale from taking effect.
+- `leading-*` classes override the `line-height: var(--line-height-none)` set in `@layer base` and must be removed.
+
+> **Note:** Do NOT replace `leading-*` with `leading-none`. Line-height is now handled entirely by `@layer base` — just remove the class and let CSS take over.
 
 ### Detection
 
+Run both searches:
+
 ```bash
+# text-* size classes on headings
 grep -rn "<h[1-6][^>]*class=\"[^\"]*text-\(xs\|sm\|base\|lg\|xl\|2xl\|3xl\|4xl\|5xl\|6xl\|7xl\|8xl\|9xl\)" \
-  --include="*.html" --include="*.tsx" --include="*.jsx" --include="*.vue" \
+  --include="*.html" --include="*.tsx" --include="*.jsx" --include="*.vue" --include="*.astro" \
+  . | grep -v "node_modules" | grep -v "dist"
+
+# leading-* classes on headings
+grep -rn "<h[1-6][^>]*class=\"[^\"]*leading-" \
+  --include="*.html" --include="*.tsx" --include="*.jsx" --include="*.vue" --include="*.astro" \
   . | grep -v "node_modules" | grep -v "dist"
 ```
 
@@ -314,28 +332,32 @@ grep -rn "<h[1-6][^>]*class=\"[^\"]*text-\(xs\|sm\|base\|lg\|xl\|2xl\|3xl\|4xl\|
 If any matches are found, display them as plain text before asking:
 
 ```
-The following h1–h6 elements have explicit text-* size classes that override the scale mapping:
+The following h1–h6 elements have classes that conflict with the new scale:
 
-  [1] post.html:68   <h2 class="text-ink font-semibold text-xl mt-10 mb-4">
-                      → text-xl would be removed (h2 uses text-4xl via @layer base)
+  [1] post.html:68   <h2 class="text-ink font-semibold text-xl leading-tight mt-10 mb-4">
+                      → text-xl removed (h2 uses text-4xl via @layer base)
+                      → leading-tight removed (line-height is set in @layer base)
   [2] index.html:22  <h2 class="mt-2 font-medium text-primary text-base">
-                      → text-base would be removed (h2 uses text-4xl via @layer base)
+                      → text-base removed (h2 uses text-4xl via @layer base)
 ```
 
 Then ask via `AskUserQuestion`:
-- Remove all listed classes (recommended)
+- Apply all changes (recommended)
 - Choose individually
 - Skip (keep all as-is)
 
-If "Choose individually" → list each item as a numbered question and let the user type which numbers to remove.
+If "Choose individually" → list each item as a numbered question and let the user type which numbers to apply.
 If "Skip" → proceed to Step 4.6 without changes.
 
-### Applying removals
+### Applying changes
 
-Remove only the `text-*` size class token from the `class` attribute. Preserve all other classes on the element.
+For each matched heading element:
+1. Remove only the `text-*` size class token from the `class` attribute (preserve all other classes).
+2. Remove any `leading-*` class tokens from the `class` attribute.
 
 > **Note:** Do not remove `text-*` color classes (e.g. `text-ink`, `text-muted`, `text-primary`).
 > Only remove size utilities: `text-xs`, `text-sm`, `text-base`, `text-lg`, `text-xl`, `text-2xl` … `text-9xl`.
+> Remove `leading-*` classes entirely — do NOT replace them with `leading-none` or any other value.
 
 ---
 
@@ -387,17 +409,21 @@ Use the detected package manager in the completion message:
 
 Changes:
   - @theme: --text-xs through --text-9xl set (rem values only)
-  - @layer base: h1–h6 font-size mapped to scale
+  - @theme: --line-height-none overridden to 1.1
+  - @layer base: h1–h6 font-size and line-height mapped to scale
   - HTML: explicit text-* removed from X heading elements  ← if any were removed
   - DESIGN.md: typography section updated                  ← if updated
 
 Changes take effect immediately if the dev server is running.
 To start: <pm> run dev
 
-💡 The line-heights above are defaults. You can override them per element
-   using Tailwind's leading-* utilities:
-   leading-tight (1.25) / leading-snug (1.375) / leading-normal (1.5)
-   leading-relaxed (1.625) / leading-loose (2)
+💡 Heading line-height is set to 1.1 via @layer base (line-height: var(--line-height-none)).
+   To adjust globally, change --line-height-none in your @theme block:
+
+     --line-height-none: 1.1;   /* try 1.0 for tighter, 1.2 for looser */
+
+   To override individual headings, add a CSS rule in @layer base or use an inline style.
+   Do NOT use leading-* Tailwind classes on headings — they override @layer base and break consistency.
 ```
 
 ---
