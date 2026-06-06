@@ -232,6 +232,21 @@ Tailwind CSS v4 has updated class naming conventions. **Always use v4 syntax**:
 - **Icons**: Use `lucide-react` with consistent sizing (`w-4 h-4` for inline, `w-6 h-6` for headings)
 - **Component Overrides**: Accept `className` prop and apply it last in `cn` call
 
+### Font Family
+
+`--heading-font-family` is already applied to h1–h6 via `@layer base` in `src/style.css`.
+`--default-font-family` is set as the default body font via `@theme`.
+
+**Never write these classes:**
+- `font-[var(--heading-font-family)]`
+- `font-(--heading-font-family)`
+- `font-[var(--default-font-family)]`
+- `font-(--default-font-family)`
+
+They are redundant on heading elements and `<body>`.
+If you need the heading font on a non-heading element (e.g. a logo `<a>` or `<p>`),
+add the selector to `@layer base` or define a dedicated utility in `@theme` instead.
+
 ### Shared Class Consolidation (`*:` Variant)
 
 When 3+ sibling elements share 2+ identical classes, consolidate them onto the parent using the `*:` variant.

@@ -102,6 +102,11 @@ ts-swc/
   - Prefer standard spacing scale (`p-4`) over arbitrary values (`p-[16px]`).
   - Ensure color contrast meets WCAG AA standards.
   - Use `aria-*` attributes for interactive elements.
+- **Font Family**:
+  - `--heading-font-family` is applied to `h1–h6` via `@layer base` in `src/index.css`.
+  - `--default-font-family` is the default body font via `@theme`.
+  - **Avoid redundant classes**: Never use `font-[var(--heading-font-family)]`, `font-(--heading-font-family)`, or similar on headings/body.
+  - For non-heading elements needing the heading font, update `@layer base` or define a utility in `@theme`.
 
 ## 6. Component Patterns
 

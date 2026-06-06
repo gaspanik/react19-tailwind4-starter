@@ -34,6 +34,7 @@
 - Prefer Tailwind's standard spacing scale before arbitrary values.
 - Do not use deprecated v3 patterns such as `space-x-*`, `space-y-*`, or `divide-*`; use flex/grid layouts with `gap-*` and explicit borders instead.
 - Put reusable theme tokens in `src/index.css` with `@theme` when a value repeats.
+- `--heading-font-family` is applied to h1–h6 via `@layer base`. `--default-font-family` is the body default. Never use `font-[var(--heading-font-family)]`, `font-(--heading-font-family)`, or their `--default-font-family` equivalents — they are redundant. To apply the heading font on a non-heading element, add the selector to `@layer base` or define a dedicated `@theme` utility.
 
 ## Project Conventions
 
