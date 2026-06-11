@@ -309,6 +309,8 @@ After applying the scale, scan HTML files for heading elements that have explici
 - `text-*` size classes override the `@layer base` mapping and prevent the new scale from taking effect.
 - `leading-*` classes override the `line-height: var(--line-height-none)` set in `@layer base` and must be removed.
 
+> **ALWAYS run the searches below — do not skip, even if the project was just created or cloned from a template.** Template starters commonly include demo HTML files (e.g. `index.html`, `about.html`) that contain heading elements with explicit `text-*` size classes. Skipping this step because the project "looks new" will leave those classes in place and silently break the new scale.
+
 > **Note:** Do NOT replace `leading-*` with `leading-none`. Line-height is now handled entirely by `@layer base` — just remove the class and let CSS take over.
 
 ### Detection
@@ -316,16 +318,18 @@ After applying the scale, scan HTML files for heading elements that have explici
 Run both searches:
 
 ```bash
-# text-* size classes on headings
-grep -rn "<h[1-6][^>]*class=\"[^\"]*text-\(xs\|sm\|base\|lg\|xl\|2xl\|3xl\|4xl\|5xl\|6xl\|7xl\|8xl\|9xl\)" \
+# text-* size classes on headings (className= covers React .tsx/.jsx files)
+grep -rn "<h[1-6][^>]*class\(Name\)\?=\"[^\"]*text-\(xs\|sm\|base\|lg\|xl\|2xl\|3xl\|4xl\|5xl\|6xl\|7xl\|8xl\|9xl\)" \
   --include="*.html" --include="*.tsx" --include="*.jsx" --include="*.vue" --include="*.astro" \
   . | grep -v "node_modules" | grep -v "dist"
 
 # leading-* classes on headings
-grep -rn "<h[1-6][^>]*class=\"[^\"]*leading-" \
+grep -rn "<h[1-6][^>]*class\(Name\)\?=\"[^\"]*leading-" \
   --include="*.html" --include="*.tsx" --include="*.jsx" --include="*.vue" --include="*.astro" \
   . | grep -v "node_modules" | grep -v "dist"
 ```
+
+> React components may also build heading classes dynamically (template literals, `cn()` etc.) — the grep only catches literal `class` / `className` strings. If the project is React-based, additionally check heading components visually.
 
 ### Candidate list
 

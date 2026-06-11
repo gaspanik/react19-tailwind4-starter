@@ -1,6 +1,6 @@
 ---
 name: create-design-md
-description: Generates a DESIGN.md file in the project root following Google's design.md specification. Supports three source modes — codebase exploration, Figma URL, or an existing DESIGN.md URL — and validates the output with the design.md linter.
+description: Generates a DESIGN.md file in the project root following Google's design.md specification. Supports four source modes — codebase exploration, Figma URL, existing DESIGN.md URL, or pasted design spec content — and validates the output with the design.md linter.
 argument-hint: "[figma-url | design-md-url]"
 allowed-tools: Bash, Read, Write, Edit, Agent, AskUserQuestion, WebFetch, mcp__plugin_figma_figma__get_design_context, mcp__plugin_figma_figma__get_screenshot, mcp__plugin_figma_figma__get_metadata, mcp__plugin_figma_figma__get_variable_defs, mcp__plugin_figma_figma__search_design_system
 ---
@@ -31,8 +31,24 @@ When asking, present these options:
 - **Explore codebase** — Extract design information from the current project's code and CSS
 - **Figma URL** — Ask the user to provide a Figma design file URL
 - **Existing DESIGN.md URL** — Fetch a publicly available DESIGN.md (e.g. a GitHub raw URL)
+- **Paste** — Paste design spec or DESIGN.md content directly (useful when the URL requires authentication or triggers a direct download)
+
+**If "Paste" is selected**: send this message and wait for the user's response:
+
+> "DESIGN.md の内容またはデザイン仕様をここに貼り付けてください。"
+
+Store the pasted content and proceed to **Step 2 — Paste mode**.
 
 ## Step 2: Collect design information
+
+### Paste mode (Step 2P)
+
+Use the pasted content as the design source. Parse it as-is — treat it as a draft DESIGN.md or informal design spec and extract:
+- Color palette (hex values, token names)
+- Typography (font family, size, weight)
+- Spacing, border radius, component styles
+
+Then proceed to **Step 3** to generate a properly formatted `DESIGN.md`.
 
 ### DESIGN.md URL mode (Step 2A)
 
@@ -131,6 +147,7 @@ components:
 - **lineHeight**: number or Dimension (e.g. `1.6` or `24px`)
 - `colors.primary` is required — omitting it triggers a `missing-primary` warning
 - Ensure WCAG AA contrast ratio (4.5:1) for `backgroundColor` / `textColor` pairs in components
+- **Component completeness**: `button-*` components that define `backgroundColor` must also define `padding`; omitting `padding` leaves button height undefined in previews
 
 ### Markdown body (section order is fixed)
 
