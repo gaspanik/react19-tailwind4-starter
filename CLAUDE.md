@@ -1,4 +1,4 @@
-# Claude Code Guidelines for vite-react-tsrouter
+# Claude Code Guidelines for react19-tailwind4-starter
 
 Minimal React 19 + TypeScript + Vite 8 + Tailwind CSS 4 starter with TanStack Router and pnpm workspace support.
 
