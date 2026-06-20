@@ -58,7 +58,7 @@
 ### 開発サーバーの起動
 
 ```bash
-<pm> dev
+<pm> run dev
 ```
 
 開発サーバーが起動し、通常 http://localhost:5173 でアクセスできます。
@@ -67,22 +67,22 @@
 
 ```bash
 # 開発サーバー起動
-<pm> dev
+<pm> run dev
 
 # プロダクションビルド
-<pm> build
+<pm> run build
 
 # ビルドしたアプリのプレビュー
-<pm> preview
+<pm> run preview
 
 # コードのリント
-<pm> lint
+<pm> run lint
 
 # コードのフォーマット
-<pm> format
+<pm> run format
 
 # リント + フォーマット
-<pm> check
+<pm> run check
 ```
 
 ## 🔤 標準書体：Gen Interface JP
