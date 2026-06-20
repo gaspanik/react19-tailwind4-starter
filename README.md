@@ -11,7 +11,6 @@
 - **[TanStack Router](https://tanstack.com/router)** - 型安全なルーティング
 - **[Tailwind CSS v4](https://tailwindcss.com/)** - ユーティリティファーストCSS
 - **[Biome](https://biomejs.dev/)** - 高速なリンター・フォーマッター
-- **[pnpm](https://pnpm.io/)** - 効率的なパッケージマネージャー
 
 ## 📁 プロジェクト構造
 
@@ -39,8 +38,7 @@
 ├── biome.json          # Biome設定
 ├── mise.toml           # Mise設定（ツールバージョン管理）
 ├── package.json        # 依存関係
-├── pnpm-lock.yaml      # pnpmロックファイル
-├── pnpm-workspace.yaml # pnpmワークスペース設定
+├── pnpm-workspace.yaml # pnpmワークスペース設定（ビルドスクリプト許可）
 ├── tsconfig.json       # TypeScript設定
 ├── tsconfig.app.json   # アプリ用TypeScript設定
 ├── tsconfig.node.json  # Node用TypeScript設定
@@ -49,16 +47,18 @@
 
 ## 🛠️ セットアップ
 
+`<pm>` はお使いのパッケージマネージャーに置き換えてください（例: `npm`, `yarn`, `pnpm`）。
+
 ### 依存関係のインストール
 
 ```bash
-pnpm install
+<pm> install
 ```
 
 ### 開発サーバーの起動
 
 ```bash
-pnpm dev
+<pm> dev
 ```
 
 開発サーバーが起動し、通常 http://localhost:5173 でアクセスできます。
@@ -67,22 +67,22 @@ pnpm dev
 
 ```bash
 # 開発サーバー起動
-pnpm dev
+<pm> dev
 
 # プロダクションビルド
-pnpm build
+<pm> build
 
 # ビルドしたアプリのプレビュー
-pnpm preview
+<pm> preview
 
 # コードのリント
-pnpm lint
+<pm> lint
 
 # コードのフォーマット
-pnpm format
+<pm> format
 
 # リント + フォーマット
-pnpm check
+<pm> check
 ```
 
 ## 🔤 標準書体：Gen Interface JP
