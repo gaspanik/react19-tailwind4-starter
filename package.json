@@ -34,5 +34,9 @@
     "globals": "^17.6.0",
     "typescript": "~6.0.3",
     "vite": "^8.0.16"
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "fsevents": true
   }
 }
