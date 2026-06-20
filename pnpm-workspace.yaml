@@ -1,4 +1,2 @@
-minimumReleaseAge: 4320
 onlyBuiltDependencies:
-  - '@swc/core'
   - esbuild
