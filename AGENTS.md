@@ -11,11 +11,11 @@
 
 ## Build and Validation
 
-- Use `pnpm` only. Do not use `npm` or `yarn`.
-- Install dependencies with `pnpm install`.
-- Start the dev server with `pnpm dev`.
-- Validate production builds with `pnpm build`.
-- Run linting and formatting with `pnpm check`.
+- Replace `<pm>` with your package manager (pnpm / bun / yarn / npm). pnpm is the default.
+- Install dependencies with `<pm> install`.
+- Start the dev server with `<pm> run dev`.
+- Validate production builds with `<pm> run build`.
+- Run linting and formatting with `<pm> run check`.
 
 ## Code Style
 

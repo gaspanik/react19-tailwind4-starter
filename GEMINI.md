@@ -4,7 +4,7 @@ This file serves as the primary context for AI agents and developers working on 
 
 ## 1. Project Overview
 
-This is a modern Single Page Application (SPA) built with **React 19**, **TypeScript**, and **Vite 8**. It utilizes **TanStack Router** for type-safe, file-based routing and **Tailwind CSS v4** for styling. The project enforces strict code quality using **Biome** and requires **pnpm** for package management.
+This is a modern Single Page Application (SPA) built with **React 19**, **TypeScript**, and **Vite 8**. It utilizes **TanStack Router** for type-safe, file-based routing and **Tailwind CSS v4** for styling. The project enforces strict code quality using **Biome** and uses **pnpm** (default) for package management; npm/yarn/bun also work.
 
 ## 2. Tech Stack
 
@@ -18,24 +18,26 @@ This is a modern Single Page Application (SPA) built with **React 19**, **TypeSc
 | **Utilities** | - | `cn` (clsx + tailwind-merge), `class-variance-authority`, `tailwind-variants` |
 | **Icons** | - | `lucide-react` |
 | **Biome** | 2.3+ | Linter & Formatter |
-| **pnpm** | 10.x | Package Manager (Strictly enforced) |
+| **pnpm** (default) | 10.x | Package Manager; npm/yarn/bun also work |
 
 ## 3. Key Commands
 
+> Replace `<pm>` with your package manager (pnpm / bun / yarn / npm).
+
 **Development**
-- `pnpm dev`: Start the development server (http://localhost:5173).
-- `pnpm preview`: Preview the production build locally.
+- `<pm> run dev`: Start the development server (http://localhost:5173).
+- `<pm> run preview`: Preview the production build locally.
 
 **Build & Quality**
-- `pnpm build`: Type-check (`tsc`) and build for production.
-- `pnpm check`: Run Biome to lint and format code.
-- `pnpm lint`: Run Biome linter (fix with `--write`).
-- `pnpm format`: Run Biome formatter (fix with `--write`).
+- `<pm> run build`: Type-check (`tsc`) and build for production.
+- `<pm> run check`: Run Biome to lint and format code.
+- `<pm> run lint`: Run Biome linter (fix with `--write`).
+- `<pm> run format`: Run Biome formatter (fix with `--write`).
 
 **Task Runner (Mise)**
-- `mise run vite:dev` → `pnpm dev`
-- `mise run vite:build` → `pnpm build`
-- `mise run vite:preview` → `pnpm preview`
+- `mise run vite:dev` → `<pm> run dev`
+- `mise run vite:build` → `<pm> run build`
+- `mise run vite:preview` → `<pm> run preview`
 
 ## 4. Project Structure
 
@@ -77,7 +79,7 @@ ts-swc/
 
 ### Code Quality (Biome)
 - **Formatting**: 2 spaces indentation, double quotes for JSX, no semicolons (unless needed), trailing commas.
-- **Workflow**: Run `pnpm check` before committing.
+- **Workflow**: Run `<pm> run check` before committing.
 
 ### Routing (TanStack Router)
 - **File-Based**: Routes are defined by files in `src/routes/`.
@@ -141,8 +143,8 @@ import { tv } from 'tailwind-variants'
 
 ## 8. Critical Rules & Pitfalls
 
-1.  **Package Manager**: MUST use **pnpm**. Do not use `npm` or `yarn`.
+1.  **Package Manager**: Use **pnpm** (default); npm/yarn/bun also work. Replace `<pm>` with your package manager.
 2.  **Auto-Generated Files**: Do not modify `src/routeTree.gen.ts`.
 3.  **Tailwind Config**: Do not create `tailwind.config.js`. Use `src/index.css`.
 4.  **Class Merging**: Always use `cn()` when accepting a `className` prop.
-5.  **Dependencies**: Use `pnpm add` to install new packages.
+5.  **Dependencies**: Use `<pm> add` to install new packages.

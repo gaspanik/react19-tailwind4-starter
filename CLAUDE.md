@@ -14,15 +14,16 @@ Detailed rules live in `.claude/rules/` and are loaded automatically:
 - **TanStack Router** — file-based routing; `src/routeTree.gen.ts` is auto-generated, **never edit it manually** (Biome ignores it too)
 - **Tailwind CSS 4** via the `@tailwindcss/vite` plugin — CSS-based config, **no `tailwind.config.js`**, no PostCSS
 - **Biome 2.3** for lint + format (no ESLint/Prettier)
-- **pnpm** required — never npm/yarn (`pnpm-workspace.yaml`)
+- **pnpm** (default) — package manager; npm/yarn/bun also work (replace `<pm>` with your package manager)
 
 ## Commands
 
 ```bash
-pnpm dev        # dev server at http://localhost:5173 (not 3000)
-pnpm build      # tsc -b + vite build — use to pre-check type errors
-pnpm check      # Biome lint + format with auto-fix — run before committing
-pnpm add <pkg>  # add dependencies (never npm install)
+# Replace <pm> with your package manager (pnpm / bun / yarn / npm)
+<pm> run dev    # dev server at http://localhost:5173 (not 3000)
+<pm> run build  # tsc -b + vite build — use to pre-check type errors
+<pm> run check  # Biome lint + format with auto-fix — run before committing
+<pm> add <pkg>  # add dependencies
 ```
 
 `mise.toml` wraps these as `mise run vite:dev` / `vite:build` / `vite:preview` for environments with mise installed.
@@ -65,6 +66,6 @@ When the Tailwind CSS MCP server is available, verify v4 class names and best pr
 ## Troubleshooting
 
 - Biome LSP errors → reload the VSCode window, verify workspace trust
-- HMR stopped → restart `pnpm dev`, delete `node_modules/.vite`
+- HMR stopped → restart `<pm> run dev`, delete `node_modules/.vite`
 - Router not updating → check that `routeTree.gen.ts` regenerates (terminal logs)
 - TanStack Router DevTools appear at the bottom-right in dev mode
