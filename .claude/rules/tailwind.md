@@ -65,6 +65,10 @@ When 3+ sibling elements share 2+ identical classes, move them to the parent wit
 
 ## Accessibility
 
+- Prefer semantic HTML over generic `div`/`span` where an element's role matches: `header`, `nav`, `main`, `section`, `article`, `footer`
+- Every `<img>` needs `alt` — descriptive text for meaningful images, `alt=""` for purely decorative ones
+- Every `<button>` needs an explicit `type="button"` (or `"submit"` when it should submit a form) — an omitted type defaults to `"submit"` inside `<form>`, a common source of bugs
+- Every form input has an associated `<label htmlFor>` (or `aria-label` if visually hidden)
 - Navigation: use TanStack Router's `Link` inside `<nav aria-label="Main navigation">` with `<ul>/<li>` structure. `Link` auto-applies the `.active` class — style it with `className="[&.active]:font-bold [&.active]:text-blue-600"`
 - Collapsible/menu buttons: set `aria-expanded={isOpen}`, `aria-controls="<target-id>"`, and a descriptive `aria-label`
 - Never write text in ALL CAPS directly in JSX — write proper case and apply the `uppercase` class. Screen readers may spell out capitalized text letter by letter; brand names and proper nouns are exempt
